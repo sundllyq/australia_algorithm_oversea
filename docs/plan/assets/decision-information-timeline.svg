@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+  <title id="title">第一阶段单轮决策的信息截点与十二步预测时序</title>
+  <desc id="desc">时间轴依次标出决策截点、模型发行时点和未来十二个五分钟目标区间。只有不晚于决策截点可见的数据能进入当前快照，第一步动作作用于发行时点到五分钟后的区间。</desc>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --fg: #172033;
+      --muted: #5f6b7a;
+      --line: #8b98aa;
+      --panel: #f4f7fb;
+      --eligible: #dbeafe;
+      --eligible-line: #2563eb;
+      --action: #dcfce7;
+      --action-line: #16803a;
+      --excluded: #fee2e2;
+      --excluded-line: #c43131;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fg: #e8edf5;
+        --muted: #b3bdca;
+        --line: #8290a3;
+        --panel: #202a38;
+        --eligible: #18385f;
+        --eligible-line: #78aef8;
+        --action: #173f2b;
+        --action-line: #70d995;
+        --excluded: #552326;
+        --excluded-line: #ff9393;
+      }
+    }
+    text {
+      fill: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    .title { font-size: 24px; font-weight: 500; }
+    .label { font-size: 16px; font-weight: 500; }
+    .small { font-size: 13px; }
+    .note { font-size: 14px; fill: var(--muted); }
+    .axis { stroke: var(--line); stroke-width: 2; }
+    .tick { stroke: var(--line); stroke-width: 1.5; }
+    .cutoff { stroke: var(--eligible-line); stroke-width: 3; }
+    .issue { stroke: var(--action-line); stroke-width: 3; }
+    .excluded-line { stroke: var(--excluded-line); stroke-width: 2; stroke-dasharray: 7 5; }
+    .eligible-box { fill: var(--eligible); stroke: var(--eligible-line); stroke-width: 1.5; }
+    .action-box { fill: var(--action); stroke: var(--action-line); stroke-width: 1.5; }
+    .future-box { fill: var(--panel); stroke: var(--line); stroke-width: 1; }
+    .excluded-box { fill: var(--excluded); stroke: var(--excluded-line); stroke-width: 1.5; }
+  </style>
+
+  <defs>
+    <marker id="axis-arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="var(--line)"/>
+    </marker>
+  </defs>
+
+  <text x="600" y="38" text-anchor="middle" class="title">单轮决策的信息截点与未来 60 分钟</text>
+
+  <rect x="55" y="78" width="245" height="82" rx="8" class="eligible-box"/>
+  <text x="177" y="108" text-anchor="middle" class="label">允许进入当前 snapshot</text>
+  <text x="177" y="134" text-anchor="middle" class="small">available_at ≤ decision_cutoff</text>
+
+  <rect x="325" y="78" width="255" height="82" rx="8" class="excluded-box"/>
+  <text x="452" y="108" text-anchor="middle" class="label">截点之后才到达的数据</text>
+  <text x="452" y="134" text-anchor="middle" class="small">当前轮排除；下一轮重新判断资格</text>
+
+  <path d="M300 119 H325" class="excluded-line"/>
+  <path d="M313 107 L325 119 L313 131" fill="none" class="excluded-line"/>
+
+  <line x1="55" y1="264" x2="1150" y2="264" class="axis" marker-end="url(#axis-arrow)"/>
+
+  <line x1="300" y1="181" x2="300" y2="348" class="cutoff"/>
+  <circle cx="300" cy="264" r="7" fill="var(--eligible-line)"/>
+  <text x="286" y="187" text-anchor="end" class="label">decision_cutoff</text>
+  <text x="286" y="209" text-anchor="end" class="small">t − decision_delay</text>
+  <text x="286" y="231" text-anchor="end" class="note">信息集在此冻结</text>
+
+  <line x1="340" y1="181" x2="340" y2="348" class="issue"/>
+  <circle cx="340" cy="264" r="7" fill="var(--action-line)"/>
+  <text x="354" y="187" class="label">model_issue_time = t</text>
+  <text x="354" y="209" class="small">同时是首个执行区间的开始</text>
+
+  <g aria-label="十二个五分钟预测区间">
+    <rect x="340" y="239" width="67" height="50" class="action-box"/>
+    <rect x="407" y="239" width="67" height="50" class="future-box"/>
+    <rect x="474" y="239" width="67" height="50" class="future-box"/>
+    <rect x="541" y="239" width="67" height="50" class="future-box"/>
+    <rect x="608" y="239" width="67" height="50" class="future-box"/>
+    <rect x="675" y="239" width="67" height="50" class="future-box"/>
+    <rect x="742" y="239" width="67" height="50" class="future-box"/>
+    <rect x="809" y="239" width="67" height="50" class="future-box"/>
+    <rect x="876" y="239" width="67" height="50" class="future-box"/>
+    <rect x="943" y="239" width="67" height="50" class="future-box"/>
+    <rect x="1010" y="239" width="67" height="50" class="future-box"/>
+    <rect x="1077" y="239" width="67" height="50" class="future-box"/>
+    <text x="373" y="270" text-anchor="middle" class="small">h=1</text>
+    <text x="440" y="270" text-anchor="middle" class="small">h=2</text>
+    <text x="507" y="270" text-anchor="middle" class="small">h=3</text>
+    <text x="574" y="270" text-anchor="middle" class="small">h=4</text>
+    <text x="641" y="270" text-anchor="middle" class="small">h=5</text>
+    <text x="708" y="270" text-anchor="middle" class="small">h=6</text>
+    <text x="775" y="270" text-anchor="middle" class="small">h=7</text>
+    <text x="842" y="270" text-anchor="middle" class="small">h=8</text>
+    <text x="909" y="270" text-anchor="middle" class="small">h=9</text>
+    <text x="976" y="270" text-anchor="middle" class="small">h=10</text>
+    <text x="1043" y="270" text-anchor="middle" class="small">h=11</text>
+    <text x="1110" y="270" text-anchor="middle" class="small">h=12</text>
+  </g>
+
+  <line x1="407" y1="289" x2="407" y2="326" class="tick"/>
+  <text x="407" y="348" text-anchor="middle" class="small">t+5</text>
+  <text x="407" y="369" text-anchor="middle" class="note">首个 target interval end</text>
+
+  <line x1="742" y1="289" x2="742" y2="326" class="tick"/>
+  <text x="742" y="348" text-anchor="middle" class="small">t+30</text>
+
+  <line x1="1144" y1="289" x2="1144" y2="326" class="tick"/>
+  <text x="1144" y="348" text-anchor="middle" class="small">t+60</text>
+  <text x="1144" y="369" text-anchor="middle" class="note">主预测窗口结束</text>
+
+  <rect x="340" y="398" width="286" height="58" rx="8" class="action-box"/>
+  <text x="483" y="423" text-anchor="middle" class="label">当前轮只执行 h=1</text>
+  <text x="483" y="445" text-anchor="middle" class="small">动作作用于 (t, t+5]；其余 11 步仅用于评估机会成本</text>
+
+  <text x="1150" y="474" text-anchor="end" class="note">市场时间：固定 AEST（UTC+10）；所有目标采用 interval-ending 语义</text>
+</svg>

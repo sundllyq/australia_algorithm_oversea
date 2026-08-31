@@ -22,6 +22,7 @@
 | 完整预测快照 | `forecast_snapshot_id` | 某次生效的完整预测流水线，引用全部组件实例、拟合窗口和有效期 | 不等于输入数据快照 |
 | 模型组件实例 | `model_snapshot_id` | 本次拟合出的模型组件包 | `model_id` 仅保留为兼容别名或展示字段 |
 | 校准组件实例 | `calibration_snapshot_id` | 本次拟合出的校准器实例 | `calibration_id` 仅保留为兼容别名或展示字段 |
+| OOD 诊断政策 | `ood_diagnostic_policy_id` | 特征越界、缺失偏移、锚点修订、价格状态、模型分歧、组件标准化、阈值和聚合规则 | 扩宽动作另由 `ood_widening_policy_id` 表示；二者不得混用 |
 | 单轮输入快照 | `data_snapshot_id` / `feature_snapshot_id` | 当前决策截点可见的数据和特征快照 | 不表示模型权重或校准器 |
 | CDF 构造子版本 | `distribution_method_version` | family 内部的 CDF 构造、插值、尾部等子版本 | 不单独定义兼容策略，引用 family 清单 |
 | PIT 规则 | `pit_method_version` | PIT 左极限、点质量随机化和哈希映射规则 | 与 CDF family 分开管理 |
@@ -146,11 +147,47 @@ model_snapshot_id
 calibration_snapshot_id
 data_snapshot_id
 distribution_method_version
+ood_diagnostic_id
+ood_diagnostic_policy_id
+fallback_status
+fallback_reason
 quality_flags
 generated_at_utc
 ```
 
 兼容展示字段：`model_id` 可映射到 `model_snapshot_id`，`calibration_id` 可映射到 `calibration_snapshot_id`；新记录不应依赖别名表达主语义。
+
+#### 4.1.1 OOD diagnostic record
+
+OOD 诊断的逻辑粒度为每个 `(forecast_distribution_id, horizon_step)` 一条 horizon 记录，并额外保存一条 `diagnostic_scope=ISSUE_GROUP` 的整个 $H$ 步聚合记录（主任务 $H=12$）。存储引擎可将该结构嵌入 `quality_flags` 或规范化为独立表，但不得丢失下列主键、组件明细、参考版本和不适用原因：
+
+```text
+ood_diagnostic_id
+forecast_distribution_id
+model_issue_time_aest
+decision_cutoff_aest
+target_interval_end_aest          # ISSUE_GROUP 记录可为空
+horizon_step                      # ISSUE_GROUP 记录可为空
+diagnostic_scope                  # HORIZON / ISSUE_GROUP
+ood_diagnostic_policy_id
+ood_reference_snapshot_id         # Train 参考统计版本
+feature_range_flags               # list<feature, value, lower, upper, direction, reference_version>
+missingness_shift                 # missing ids/rates, reference value, distance, threshold, flag
+anchor_revision_anomaly           # previous/current run, revision, score, threshold, flag/NA reason
+price_regime_rarity               # regime id, support count/frequency, rarity score, threshold, flag
+model_disagreement                # compared models, quantile/CDF and event gaps, threshold, flag/NA reason
+ood_score                         # components, normalization, aggregation, score, threshold, flag
+ood_widening_policy_id            # 未启用时显式为空
+widening_applied
+pre_widening_quantiles            # 按冻结网格保存；未扩宽时与实际输出一致
+post_widening_quantiles
+fallback_status
+fallback_reason
+component_not_applicable_reasons
+generated_at_utc
+```
+
+`ood_score` 不能代替五类组件明细。关键输入缺失、CDF 硬约束失败、OOD 超阈值和实际 fallback 必须是可区分的状态；不得用同一个布尔 flag 表示四者。
 
 ### 4.2 PIT template table
 
