@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" role="img" aria-labelledby="title desc">
+<style>
+:root{color-scheme:light dark;--fg:#172033;--muted:#5f6b7a;--line:#8b98aa;--panel:#f4f7fb;--blue:#dbeafe;--bs:#2563eb;--green:#dcfce7;--gs:#16803a;--purple:#ede9fe;--ps:#7650c7;--amber:#fff4d6;--as:#b7791f}
+@media(prefers-color-scheme:dark){:root{--fg:#e8edf5;--muted:#b3bdca;--line:#8290a3;--panel:#202a38;--blue:#18385f;--bs:#78aef8;--green:#173f2b;--gs:#70d995;--purple:#33275a;--ps:#b7a0ff;--amber:#4e3a18;--as:#f2c25f}}
+text{fill:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:17px}
+.title{font-size:25px;font-weight:600}.heading{font-size:19px;font-weight:600}.small{font-size:15px}.note{font-size:15px;fill:var(--muted)}
+.panel{fill:var(--panel);stroke:var(--line)}.blue{fill:var(--blue);stroke:var(--bs)}.green{fill:var(--green);stroke:var(--gs)}.purple{fill:var(--purple);stroke:var(--ps)}.amber{fill:var(--amber);stroke:var(--as)}
+rect{stroke-width:1.5}.edge{fill:none;stroke:var(--line);stroke-width:2;marker-end:url(#arrow)}.rule{stroke:var(--line);stroke-width:1}.a{stroke:var(--bs);fill:none;stroke-width:3}.b{stroke:var(--ps);fill:none;stroke-width:3}.c{stroke:var(--gs);fill:none;stroke-width:3}
+</style>
+<defs>
+<marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M0 0 L8 4 L0 8 Z" fill="var(--line)"/>
+</marker>
+</defs>
+<title id="title">表后站点能量流与 NMI 结算边界</title>
+<desc id="desc">教学示例中负荷四千瓦，光伏一千瓦，电池放电两千瓦，电网进口一千瓦，出口为零。电池供本地负荷减少进口，不能同时记为出口收入。</desc>
+<text x="600" y="40" class="title" text-anchor="middle">先看电量流向，再在电表边界结算一次</text>
+<text x="600" y="73" class="note" text-anchor="middle">教学示例：五分钟区间的交流侧平均功率，单位 kW；无弃光、无充电、无出口</text>
+<rect x="355" y="105" width="810" height="350" rx="10" class="panel"/>
+<text x="760" y="137" class="heading" text-anchor="middle">站点内部：光伏、电池与负荷</text>
+<rect x="40" y="235" width="160" height="95" rx="10" class="blue"/>
+<text x="120" y="290" class="heading" text-anchor="middle">电网</text>
+<line x1="300" y1="125" x2="300" y2="440" style="stroke:var(--bs);stroke-width:3;stroke-dasharray:8 5"/>
+<text x="300" y="115" class="small" text-anchor="middle">NMI 计量边界</text>
+<rect x="740" y="245" width="220" height="90" rx="10" class="green"/>
+<text x="850" y="280" class="heading" text-anchor="middle">本地负荷</text>
+<text x="850" y="312" class="" text-anchor="middle">用电 4 kW</text>
+<rect x="445" y="155" width="210" height="75" rx="10" class="purple"/>
+<text x="550" y="186" class="heading" text-anchor="middle">光伏</text>
+<text x="550" y="215" class="" text-anchor="middle">输出 1 kW</text>
+<rect x="445" y="345" width="210" height="75" rx="10" class="amber"/>
+<text x="550" y="376" class="heading" text-anchor="middle">电池</text>
+<text x="550" y="405" class="" text-anchor="middle">放电 2 kW</text>
+<path d="M200 280 H730" class="edge"/>
+<text x="435" y="267" class="small" text-anchor="middle">进口 1 kW（出口 0）</text>
+<path d="M655 193 H850 V235" class="edge"/>
+<text x="735" y="180" class="small" text-anchor="middle">PV → 负荷：1 kW</text>
+<path d="M655 383 H850 V345" class="edge"/>
+<text x="755" y="410" class="small" text-anchor="middle">电池 → 负荷：2 kW</text>
+<rect x="35" y="480" width="540" height="145" rx="10" class="blue"/>
+<text x="305" y="515" class="heading" text-anchor="middle">边界净功率：进口为正</text>
+<text x="305" y="552" class="" text-anchor="middle">P_grid = 4 − 1 − 2 = 1 kW</text>
+<text x="305" y="589" class="small" text-anchor="middle">五分钟进口电量 = 1 × 1/12 = 0.083333 kWh</text>
+<rect x="600" y="480" width="565" height="145" rx="10" class="amber"/>
+<text x="882" y="515" class="heading" text-anchor="middle">电池的 2 kW 已用于减少进口</text>
+<text x="882" y="552" class="small" text-anchor="middle">该区间没有净出口，不产生出口能量收入。</text>
+<text x="882" y="589" class="small" text-anchor="middle">进出口按边界计收，退化等成本按各自配置另计。</text>
+<text x="600" y="650" class="note" text-anchor="middle">图中只画本例实际能量流；其他区间可出现充电或上网，但同一区间不能同时充放电或同时进出口。</text>
+</svg>

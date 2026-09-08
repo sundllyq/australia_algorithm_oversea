@@ -67,19 +67,19 @@
 
   <rect x="715" y="98" width="410" height="108" rx="8" class="continuation-box"/>
   <text x="920" y="126" text-anchor="middle" class="label">窗口外延续机会</text>
-  <text x="920" y="151" text-anchor="middle" class="small">未来价格、费用、效率、退化与可执行策略共同决定库存价值</text>
-  <text x="920" y="178" text-anchor="middle" class="note">V1/V2 只做可冻结的近似，不把未来收益当成已经实现</text>
+  <text x="920" y="151" text-anchor="middle" class="small">价格、费用、效率、退化与可执行策略共同影响价值</text>
+  <text x="920" y="178" text-anchor="middle" class="note">V0 为零估值对照；V1 待验证；V2 需额外数据审计</text>
 
   <line x1="75" y1="270" x2="1125" y2="270" class="axis"/>
   <line x1="75" y1="250" x2="75" y2="290" class="axis"/>
   <line x1="685" y1="224" x2="685" y2="342" class="boundary"/>
   <line x1="1125" y1="250" x2="1125" y2="290" class="axis"/>
 
-  <text x="75" y="316" text-anchor="middle" class="label">t</text>
+  <text x="75" y="316" text-anchor="middle" class="label">10:00</text>
   <text x="75" y="337" text-anchor="middle" class="note">本轮开始</text>
   <text x="685" y="367" text-anchor="middle" class="label">τ = t + HΔt</text>
-  <text x="685" y="388" text-anchor="middle" class="note">主任务为 t+60</text>
-  <text x="1125" y="316" text-anchor="middle" class="label">更远未来</text>
+  <text x="685" y="388" text-anchor="middle" class="note">本例为 11:00（AEST）</text>
+  <text x="1125" y="238" text-anchor="end" class="label">更远未来</text>
 
   <g aria-label="十二个五分钟现金流区间">
     <rect x="75" y="250" width="50.83" height="40" class="window-box"/>
@@ -101,18 +101,18 @@
 
   <rect x="558" y="405" width="254" height="62" rx="8" class="state-box"/>
   <text x="685" y="431" text-anchor="middle" class="label">窗口末状态 E₍H+1,s₎</text>
-  <text x="685" y="454" text-anchor="middle" class="small">逐场景进入终端价值函数</text>
+  <text x="685" y="454" text-anchor="middle" class="small">O0 共用动作时，各场景末电量相同</text>
 
-  <path d="M812 436 C900 436, 900 339, 965 302" class="connector dashed" marker-end="url(#arrow)"/>
+  <path d="M812 436 L824 436 L824 388 L850 354 L862 354" class="connector dashed" marker-end="url(#arrow)"/>
   <rect x="862" y="300" width="262" height="68" rx="8" class="continuation-box"/>
   <text x="993" y="327" text-anchor="middle" class="label">Vₜ(E₍H+1,s₎, ctxτ)</text>
   <text x="993" y="350" text-anchor="middle" class="small">近似窗口外增量机会成本</text>
 
   <rect x="75" y="405" width="392" height="62" rx="8" class="panel-box"/>
-  <text x="271" y="431" text-anchor="middle" class="label">优化目标：Σₖ Πₖ,s + Vₜ(·)</text>
-  <text x="271" y="454" text-anchor="middle" class="small">终端价值位于场景价值内部，用于形成当前首动作</text>
+  <text x="271" y="431" text-anchor="middle" class="label">单个场景的规划价值：Σₖ Πₖ,s + Vₜ(·)</text>
+  <text x="271" y="454" text-anchor="middle" class="small">完整目标还需场景加权、基准比较和风险惩罚</text>
 
   <rect x="835" y="405" width="290" height="62" rx="8" class="warning-box"/>
-  <text x="980" y="431" text-anchor="middle" class="label">已实现 PnL 不重复计入 Vₜ</text>
-  <text x="980" y="454" text-anchor="middle" class="small">连续回测段只在最终终点统一调整一次</text>
+  <text x="980" y="431" text-anchor="middle" class="label">实际回放收益不计入每轮 Vₜ</text>
+  <text x="980" y="454" text-anchor="middle" class="small">回测段末按共同约束或惩罚／调整规则处理</text>
 </svg>

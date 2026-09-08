@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 990" role="img" aria-labelledby="title desc">
+  <title id="title">J3 历史模板不足时的检查与回退顺序</title>
+  <desc id="desc">教学例子需要一百条模板，最相似的合格案例仅能提供四十条。先按冻结档位放宽相似度，满足要求就使用 J3；所有档位仍不足则依次检查 J2、J1、J0 的使用条件。资格和日事件限额不放宽，J1 改变边际分布，非法数据应停止并按错误规则处理。</desc>
+  <style>
+    :root{color-scheme:light dark;--fg:#172033;--muted:#5f6b7a;--line:#8b98aa;--bg:#ffffff;--panel:#f4f7fb;--blue:#dbeafe;--bs:#2563eb;--green:#dcfce7;--gs:#16803a;--amber:#fff4d6;--as:#b7791f}
+    @media(prefers-color-scheme:dark){:root{--fg:#e8edf5;--muted:#b3bdca;--line:#8290a3;--bg:#141c28;--panel:#202a38;--blue:#18385f;--bs:#78aef8;--green:#173f2b;--gs:#70d995;--amber:#4e3a18;--as:#f2c25f}}
+    text{fill:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:18px}
+    .title{font-size:26px;font-weight:600}.heading{font-size:20px;font-weight:600}.note{font-size:16px;fill:var(--muted)}
+    rect{stroke-width:1.5}.panel{fill:var(--panel);stroke:var(--line)}.blue{fill:var(--blue);stroke:var(--bs)}.green{fill:var(--green);stroke:var(--gs)}.amber{fill:var(--amber);stroke:var(--as)}
+    .edge{fill:none;stroke:var(--line);stroke-width:2;marker-end:url(#arrow)}
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="var(--line)"/></marker>
+  </defs>
+  <rect width="1120" height="990" fill="var(--bg)"/>
+  <text x="560" y="40" text-anchor="middle" class="title">J3 模板不够时，先放宽相似程度，再逐级检查回退</text>
+  <text x="560" y="72" text-anchor="middle" class="note">教学假设：本轮需要 100 条；数量、距离档位与来源要求在验证期确定</text>
+  <rect x="30" y="94" width="1060" height="74" rx="10" class="panel"/>
+  <text x="50" y="122">全程守住：结果可见时间、版本与质量合格；日／事件贡献限额有效。</text>
+  <text x="50" y="150" class="note">“足够”同时要求数量与来源多样性达标；不复制模板、不临时减少场景数、不加入测试新结果。</text>
+
+  <g id="initial-j3">
+    <rect x="40" y="198" width="560" height="84" rx="10" class="blue"/>
+    <text x="60" y="231" class="heading">① J3：检索最相似的合格模板</text>
+    <text x="60" y="260">应用日／事件限额后，是否足够？</text>
+    <path d="M600 240 H790" class="edge"/>
+    <text x="695" y="227" text-anchor="middle" class="note">足够</text>
+    <rect x="800" y="198" width="280" height="84" rx="10" class="green"/>
+    <text x="940" y="231" text-anchor="middle" class="heading">使用 J3 生成路径</text>
+    <text x="940" y="260" text-anchor="middle" class="note">记录实际方法与选择信息</text>
+    <path d="M320 282 V340" class="edge"/>
+    <text x="340" y="318" class="note">本例：只有 40 条，不足 100 条</text>
+  </g>
+  <g id="widen-j3">
+    <rect x="40" y="350" width="560" height="84" rx="10" class="blue"/>
+    <text x="60" y="383" class="heading">② J3：按冻结档位逐次放宽相似度</text>
+    <text x="60" y="412">每档重新检查；接受稍不相似的合格案例</text>
+    <path d="M600 392 H790" class="edge"/>
+    <text x="695" y="379" text-anchor="middle" class="note">某档已足够</text>
+    <rect x="800" y="350" width="280" height="84" rx="10" class="green"/>
+    <text x="940" y="383" text-anchor="middle" class="heading">使用 J3 生成路径</text>
+    <text x="940" y="412" text-anchor="middle" class="note">记录放宽到哪一档</text>
+    <path d="M320 434 V492" class="edge"/>
+    <text x="340" y="470" class="note">所有允许档位仍不足</text>
+  </g>
+  <g id="fallback-j2">
+    <rect x="40" y="502" width="560" height="84" rx="10" class="blue"/>
+    <text x="60" y="535" class="heading">③ J2：检查一般合格 PIT 模板是否足够</text>
+    <text x="60" y="564">不再按当前状态相似程度优先选择</text>
+    <path d="M600 544 H790" class="edge"/>
+    <text x="695" y="531" text-anchor="middle" class="note">足够</text>
+    <rect x="800" y="502" width="280" height="84" rx="10" class="green"/>
+    <text x="940" y="535" text-anchor="middle" class="heading">使用 J2 生成路径</text>
+    <text x="940" y="564" text-anchor="middle" class="note">记录从 J3 回退的原因</text>
+    <path d="M320 586 V644" class="edge"/>
+    <text x="340" y="622" class="note">仍不足</text>
+  </g>
+  <g id="fallback-j1">
+    <rect x="40" y="654" width="560" height="84" rx="10" class="amber"/>
+    <text x="60" y="687" class="heading">④ J1：检查合格历史残差块是否足够</text>
+    <text x="60" y="716">借用完整历史误差序列及其金额</text>
+    <path d="M600 696 H790" class="edge"/>
+    <text x="695" y="683" text-anchor="middle" class="note">足够</text>
+    <rect x="800" y="654" width="280" height="84" rx="10" class="amber"/>
+    <text x="940" y="683" text-anchor="middle" class="heading">使用 J1，单独标记</text>
+    <text x="940" y="707" text-anchor="middle" class="note">每步价格分布可能改变</text>
+    <text x="940" y="729" text-anchor="middle" class="note">退出“只比较连接”的对照</text>
+    <path d="M320 738 V796" class="edge"/>
+    <text x="340" y="774" class="note">仍不足</text>
+  </g>
+  <g id="fallback-j0">
+    <rect x="40" y="806" width="560" height="84" rx="10" class="blue"/>
+    <text x="60" y="839" class="heading">⑤ J0：确认当前概率分布合格</text>
+    <text x="60" y="868">不依赖历史 PIT 模板或完整残差块</text>
+    <path d="M600 848 H790" class="edge"/>
+    <text x="695" y="835" text-anchor="middle" class="note">合格</text>
+    <rect x="800" y="806" width="280" height="84" rx="10" class="green"/>
+    <text x="940" y="839" text-anchor="middle" class="heading">使用 J0 生成路径</text>
+    <text x="940" y="868" text-anchor="middle" class="note">各步候选独立排列</text>
+  </g>
+  <rect x="30" y="922" width="1060" height="48" rx="8" class="panel"/>
+  <text x="560" y="952" text-anchor="middle" class="note">任一步发现非法 CDF 或来源不可追溯：按第 10 章处理错误；不能借回退绕过。J0 也须满足分布要求。</text>
+</svg>

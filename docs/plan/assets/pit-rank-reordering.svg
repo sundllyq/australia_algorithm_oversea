@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" role="img" aria-labelledby="title desc">
+<style>
+:root{color-scheme:light dark;--fg:#172033;--muted:#5f6b7a;--line:#8b98aa;--panel:#f4f7fb;--blue:#dbeafe;--bs:#2563eb;--green:#dcfce7;--gs:#16803a;--purple:#ede9fe;--ps:#7650c7;--amber:#fff4d6;--as:#b7791f}
+@media(prefers-color-scheme:dark){:root{--fg:#e8edf5;--muted:#b3bdca;--line:#8290a3;--panel:#202a38;--blue:#18385f;--bs:#78aef8;--green:#173f2b;--gs:#70d995;--purple:#33275a;--ps:#b7a0ff;--amber:#4e3a18;--as:#f2c25f}}
+text{fill:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:17px}
+.title{font-size:25px;font-weight:600}.heading{font-size:19px;font-weight:600}.small{font-size:15px}.note{font-size:15px;fill:var(--muted)}
+.panel{fill:var(--panel);stroke:var(--line)}.blue{fill:var(--blue);stroke:var(--bs)}.green{fill:var(--green);stroke:var(--gs)}.purple{fill:var(--purple);stroke:var(--ps)}.amber{fill:var(--amber);stroke:var(--as)}
+rect{stroke-width:1.5}.edge{fill:none;stroke:var(--line);stroke-width:2;marker-end:url(#arrow)}.rule{stroke:var(--line);stroke-width:1}.a{stroke:var(--bs);fill:none;stroke-width:3}.b{stroke:var(--ps);fill:none;stroke-width:3}.c{stroke:var(--gs);fill:none;stroke-width:3}
+</style>
+<defs>
+<marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M0 0 L8 4 L0 8 Z" fill="var(--line)"/>
+</marker>
+</defs>
+<title id="title">J2 重排：每列价格不变，历史排名决定连接</title>
+<desc id="desc">用三个历史模板和两个预测步演示 PIT 的跨模板排名如何分配当前价格候选。A 得到四十到一百五十，B 得到一百到七十，C 得到六十到三十。数值为教学示意。</desc>
+<text x="600" y="40" class="title" text-anchor="middle">每列价格保持不变，历史排名决定怎样连成路径</text>
+<text x="600" y="72" class="note" text-anchor="middle">教学示意：3 条等权模板，只展示 2 步；正式路径覆盖未来 12 步</text>
+<rect x="35" y="105" width="340" height="240" rx="10" class="blue"/>
+<text x="205" y="140" class="heading" text-anchor="middle">① 读取历史 PIT</text>
+<text x="105" y="180" class="" text-anchor="middle">模板</text>
+<text x="215" y="180" class="" text-anchor="middle">h=1</text>
+<text x="315" y="180" class="" text-anchor="middle">h=2</text>
+<text x="105" y="222" class="" text-anchor="middle">A</text>
+<text x="215" y="222" class="" text-anchor="middle">0.2</text>
+<text x="315" y="222" class="" text-anchor="middle">0.9</text>
+<text x="105" y="265" class="" text-anchor="middle">B</text>
+<text x="215" y="265" class="" text-anchor="middle">0.8</text>
+<text x="315" y="265" class="" text-anchor="middle">0.4</text>
+<text x="105" y="308" class="" text-anchor="middle">C</text>
+<text x="215" y="308" class="" text-anchor="middle">0.5</text>
+<text x="315" y="308" class="" text-anchor="middle">0.1</text>
+<rect x="430" y="105" width="340" height="240" rx="10" class="purple"/>
+<text x="600" y="140" class="heading" text-anchor="middle">② 同一列跨模板排名</text>
+<text x="490" y="180" class="" text-anchor="middle">模板</text>
+<text x="610" y="180" class="" text-anchor="middle">h=1</text>
+<text x="710" y="180" class="" text-anchor="middle">h=2</text>
+<text x="490" y="222" class="" text-anchor="middle">A</text>
+<text x="610" y="222" class="" text-anchor="middle">1</text>
+<text x="710" y="222" class="" text-anchor="middle">3</text>
+<text x="490" y="265" class="" text-anchor="middle">B</text>
+<text x="610" y="265" class="" text-anchor="middle">3</text>
+<text x="710" y="265" class="" text-anchor="middle">2</text>
+<text x="490" y="308" class="" text-anchor="middle">C</text>
+<text x="610" y="308" class="" text-anchor="middle">2</text>
+<text x="710" y="308" class="" text-anchor="middle">1</text>
+<path d="M380 220 H422" class="edge"/>
+<path d="M775 220 H817" class="edge"/>
+<rect x="825" y="105" width="340" height="240" rx="10" class="green"/>
+<text x="995" y="140" class="heading" text-anchor="middle">③ 按排名领取当前候选</text>
+<text x="995" y="185" class="small" text-anchor="middle">从低到高排列，单位 A$/MWh</text>
+<text x="995" y="230" class="" text-anchor="middle">h=1：40、60、100</text>
+<text x="995" y="270" class="" text-anchor="middle">h=2：30、70、150</text>
+<text x="995" y="315" class="note" text-anchor="middle">每个候选在该列恰好使用一次</text>
+<rect x="35" y="375" width="520" height="240" rx="10" class="panel"/>
+<text x="295" y="410" class="heading" text-anchor="middle">④ 同一模板身份贯穿各步</text>
+<text x="165" y="448" class="" text-anchor="middle">h=1</text>
+<text x="440" y="448" class="" text-anchor="middle">h=2</text>
+<path d="M205 570 L400 478" class="a"/>
+<path d="M205 478 L400 524" class="b"/>
+<path d="M205 524 L400 570" class="c"/>
+<text x="150" y="483" class="" text-anchor="middle">B：100</text>
+<text x="150" y="529" class="" text-anchor="middle">C：60</text>
+<text x="150" y="575" class="" text-anchor="middle">A：40</text>
+<text x="450" y="483" class="" text-anchor="middle">150：A</text>
+<text x="450" y="529" class="" text-anchor="middle">70：B</text>
+<text x="450" y="575" class="" text-anchor="middle">30：C</text>
+<rect x="590" y="375" width="575" height="240" rx="10" class="amber"/>
+<text x="877" y="415" class="heading" text-anchor="middle">检查的是边际不变，不是路径更平滑</text>
+<text x="620" y="458" class="" text-anchor="start">A：40 → 150    B：100 → 70    C：60 → 30</text>
+<text x="620" y="498" class="" text-anchor="start">连接前后，每列排序后的价格必须完全一致。</text>
+<text x="620" y="538" class="small" text-anchor="start">排名跨模板进行，不能在一条模板内给时间点排序。</text>
+<text x="620" y="578" class="note" text-anchor="start">连线仅表示候选连接，不代表已验证的价格规律。</text>
+</svg>

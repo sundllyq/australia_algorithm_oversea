@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" role="img" aria-labelledby="title desc">
+<style>
+:root{color-scheme:light dark;--fg:#172033;--muted:#5f6b7a;--line:#8b98aa;--panel:#f4f7fb;--blue:#dbeafe;--bs:#2563eb;--green:#dcfce7;--gs:#16803a;--purple:#ede9fe;--ps:#7650c7;--amber:#fff4d6;--as:#b7791f}
+@media(prefers-color-scheme:dark){:root{--fg:#e8edf5;--muted:#b3bdca;--line:#8290a3;--panel:#202a38;--blue:#18385f;--bs:#78aef8;--green:#173f2b;--gs:#70d995;--purple:#33275a;--ps:#b7a0ff;--amber:#4e3a18;--as:#f2c25f}}
+text{fill:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:17px}
+.title{font-size:25px;font-weight:600}.heading{font-size:19px;font-weight:600}.small{font-size:15px}.note{font-size:15px;fill:var(--muted)}
+.panel{fill:var(--panel);stroke:var(--line)}.blue{fill:var(--blue);stroke:var(--bs)}.green{fill:var(--green);stroke:var(--gs)}.purple{fill:var(--purple);stroke:var(--ps)}.amber{fill:var(--amber);stroke:var(--as)}
+rect{stroke-width:1.5}.edge{fill:none;stroke:var(--line);stroke-width:2;marker-end:url(#arrow)}.rule{stroke:var(--line);stroke-width:1}.a{stroke:var(--bs);fill:none;stroke-width:3}.b{stroke:var(--ps);fill:none;stroke-width:3}.c{stroke:var(--gs);fill:none;stroke-width:3}
+</style>
+<defs>
+<marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M0 0 L8 4 L0 8 Z" fill="var(--line)"/>
+</marker>
+</defs>
+<title id="title">O0、O1 与 O2 的动作信息边界</title>
+<desc id="desc">节点代表动作，连线代表计划延续。O0 所有场景共用动作；O1 只有观测历史可区分后才可分开动作；O2 从第二步提前知道完整价格路径，仅作乐观诊断。</desc>
+<text x="600" y="40" class="title" text-anchor="middle">价格路径可以不同，动作能否不同取决于当时知道什么</text>
+<text x="600" y="73" class="note" text-anchor="middle">结构示意，仅画前三步；方框表示动作，连线表示计划延续，不表示价格曲线</text>
+<rect x="35" y="105" width="350" height="480" rx="10" class="panel"/>
+<rect x="45" y="115" width="330" height="75" rx="10" class="blue"/>
+<text x="210" y="145" class="heading" text-anchor="middle">O0：所有场景共用动作</text>
+<text x="210" y="174" class="note" text-anchor="middle">首个可检查的优化基线</text>
+<rect x="425" y="105" width="350" height="480" rx="10" class="panel"/>
+<rect x="435" y="115" width="330" height="75" rx="10" class="green"/>
+<text x="600" y="145" class="heading" text-anchor="middle">O1：观测分开后动作才分开</text>
+<text x="600" y="174" class="note" text-anchor="middle">有条件采用的场景树增强</text>
+<rect x="815" y="105" width="350" height="480" rx="10" class="panel"/>
+<rect x="825" y="115" width="330" height="75" rx="10" class="amber"/>
+<text x="990" y="145" class="heading" text-anchor="middle">O2：提前知道完整路径</text>
+<text x="990" y="174" class="note" text-anchor="middle">乐观信息诊断</text>
+<rect x="105" y="215" width="210" height="42" rx="10" class="blue"/>
+<text x="210" y="242" class="small" text-anchor="middle">h=1：共用当前动作</text>
+<path d="M210 258 V305" class="edge"/>
+<rect x="105" y="315" width="210" height="42" rx="10" class="blue"/>
+<text x="210" y="342" class="small" text-anchor="middle">h=2：仍共用动作</text>
+<path d="M210 358 V405" class="edge"/>
+<rect x="105" y="415" width="210" height="42" rx="10" class="blue"/>
+<text x="210" y="442" class="small" text-anchor="middle">h=3：仍共用动作</text>
+<text x="210" y="503" class="small" text-anchor="middle">不同价格路径分别计算价值</text>
+<text x="210" y="534" class="small" text-anchor="middle">但当前窗口计划始终共用</text>
+<rect x="495" y="215" width="210" height="42" rx="10" class="green"/>
+<text x="600" y="242" class="small" text-anchor="middle">h=1：共用当前动作</text>
+<path d="M600 258 V305" class="edge"/>
+<rect x="460" y="315" width="280" height="42" rx="10" class="green"/>
+<text x="600" y="342" class="small" text-anchor="middle">h=2：尚不可区分，动作相同</text>
+<path d="M600 358 V383 H505 V405" class="edge"/>
+<path d="M600 383 H695 V405" class="edge"/>
+<rect x="450" y="415" width="110" height="42" rx="10" class="green"/>
+<text x="505" y="442" class="small" text-anchor="middle">h=3：动作 a</text>
+<rect x="640" y="415" width="110" height="42" rx="10" class="green"/>
+<text x="695" y="442" class="small" text-anchor="middle">h=3：动作 b</text>
+<text x="600" y="493" class="small" text-anchor="middle">示例：到 h=3 才获得可区分的观测</text>
+<text x="600" y="521" class="small" text-anchor="middle">分叉时点由可见信息决定</text>
+<text x="600" y="549" class="small" text-anchor="middle">观测不同后才允许动作不同</text>
+<rect x="885" y="215" width="210" height="42" rx="10" class="amber"/>
+<text x="990" y="242" class="small" text-anchor="middle">h=1：共用当前动作</text>
+<path d="M990 258 V282 H895 V305" class="edge"/>
+<path d="M990 282 H1085 V305" class="edge"/>
+<rect x="840" y="315" width="110" height="42" rx="10" class="amber"/>
+<text x="895" y="342" class="small" text-anchor="middle">h=2：动作 a</text>
+<rect x="1030" y="315" width="110" height="42" rx="10" class="amber"/>
+<text x="1085" y="342" class="small" text-anchor="middle">h=2：动作 b</text>
+<path d="M895 358 V405" class="edge"/>
+<path d="M1085 358 V405" class="edge"/>
+<rect x="840" y="415" width="110" height="42" rx="10" class="amber"/>
+<text x="895" y="442" class="small" text-anchor="middle">h=3：动作 c</text>
+<rect x="1030" y="415" width="110" height="42" rx="10" class="amber"/>
+<text x="1085" y="442" class="small" text-anchor="middle">h=3：动作 d</text>
+<text x="990" y="493" class="small" text-anchor="middle">h=2 起即知道各自完整未来路径</text>
+<text x="990" y="521" class="small" text-anchor="middle">使用了现实中尚未获得的信息</text>
+<text x="990" y="549" class="small" text-anchor="middle">不作为可执行策略</text>
+<rect x="35" y="605" width="1130" height="38" rx="10" class="purple"/>
+<text x="600" y="630" class="small" text-anchor="middle">三者本轮都只执行 h=1；下一轮按新信息重算。O0 的共用计划不等于现实中一小时不能调整。</text>
+</svg>

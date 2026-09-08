@@ -57,11 +57,11 @@
   <text x="600" y="38" text-anchor="middle" class="title">单轮决策的信息截点与未来 60 分钟</text>
 
   <rect x="55" y="78" width="245" height="82" rx="8" class="eligible-box"/>
-  <text x="177" y="108" text-anchor="middle" class="label">允许进入当前 snapshot</text>
+  <text x="177" y="108" text-anchor="middle" class="label">允许进入当前信息快照</text>
   <text x="177" y="134" text-anchor="middle" class="small">available_at ≤ decision_cutoff</text>
 
   <rect x="325" y="78" width="255" height="82" rx="8" class="excluded-box"/>
-  <text x="452" y="108" text-anchor="middle" class="label">截点之后才到达的数据</text>
+  <text x="452" y="108" text-anchor="middle" class="label">截点之后才可见的数据</text>
   <text x="452" y="134" text-anchor="middle" class="small">当前轮排除；下一轮重新判断资格</text>
 
   <path d="M300 119 H325" class="excluded-line"/>
@@ -72,12 +72,12 @@
   <line x1="300" y1="181" x2="300" y2="348" class="cutoff"/>
   <circle cx="300" cy="264" r="7" fill="var(--eligible-line)"/>
   <text x="286" y="187" text-anchor="end" class="label">decision_cutoff</text>
-  <text x="286" y="209" text-anchor="end" class="small">t − decision_delay</text>
+  <text x="286" y="209" text-anchor="end" class="small">09:59（示例提前一分钟）</text>
   <text x="286" y="231" text-anchor="end" class="note">信息集在此冻结</text>
 
   <line x1="340" y1="181" x2="340" y2="348" class="issue"/>
   <circle cx="340" cy="264" r="7" fill="var(--action-line)"/>
-  <text x="354" y="187" class="label">model_issue_time = t</text>
+  <text x="354" y="187" class="label">issue_time = t = 10:00</text>
   <text x="354" y="209" class="small">同时是首个执行区间的开始</text>
 
   <g aria-label="十二个五分钟预测区间">
@@ -108,19 +108,19 @@
   </g>
 
   <line x1="407" y1="289" x2="407" y2="326" class="tick"/>
-  <text x="407" y="348" text-anchor="middle" class="small">t+5</text>
-  <text x="407" y="369" text-anchor="middle" class="note">首个 target interval end</text>
+  <text x="407" y="348" text-anchor="middle" class="small">10:05（t+5）</text>
+  <text x="407" y="369" text-anchor="middle" class="note">首个目标区间结束</text>
 
   <line x1="742" y1="289" x2="742" y2="326" class="tick"/>
-  <text x="742" y="348" text-anchor="middle" class="small">t+30</text>
+  <text x="742" y="348" text-anchor="middle" class="small">10:30（t+30）</text>
 
   <line x1="1144" y1="289" x2="1144" y2="326" class="tick"/>
-  <text x="1144" y="348" text-anchor="middle" class="small">t+60</text>
-  <text x="1144" y="369" text-anchor="middle" class="note">主预测窗口结束</text>
+  <text x="1144" y="348" text-anchor="end" class="small">11:00（t+60）</text>
+  <text x="1144" y="369" text-anchor="end" class="note">主预测窗口结束</text>
 
-  <rect x="340" y="398" width="286" height="58" rx="8" class="action-box"/>
-  <text x="483" y="423" text-anchor="middle" class="label">当前轮只执行 h=1</text>
-  <text x="483" y="445" text-anchor="middle" class="small">动作作用于 (t, t+5]；其余 11 步仅用于评估机会成本</text>
+  <rect x="340" y="398" width="580" height="58" rx="8" class="action-box"/>
+  <text x="630" y="423" text-anchor="middle" class="label">当前轮只执行 h=1；10:05 进入下一轮重算</text>
+  <text x="630" y="445" text-anchor="middle" class="small">动作作用于 (10:00, 10:05]；其余 11 步用于评估机会成本</text>
 
-  <text x="1150" y="474" text-anchor="end" class="note">市场时间：固定 AEST（UTC+10）；所有目标采用 interval-ending 语义</text>
+  <text x="1150" y="482" text-anchor="end" class="note">固定 AEST（UTC+10），区间结束口径；一分钟延迟仅为教学假设，时间轴非等比例</text>
 </svg>

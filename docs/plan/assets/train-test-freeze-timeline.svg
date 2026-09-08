@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" role="img" aria-labelledby="title desc">
+<style>
+:root{color-scheme:light dark;--fg:#172033;--muted:#5f6b7a;--line:#8b98aa;--panel:#f4f7fb;--blue:#dbeafe;--bs:#2563eb;--green:#dcfce7;--gs:#16803a;--purple:#ede9fe;--ps:#7650c7;--amber:#fff4d6;--as:#b7791f}
+@media(prefers-color-scheme:dark){:root{--fg:#e8edf5;--muted:#b3bdca;--line:#8290a3;--panel:#202a38;--blue:#18385f;--bs:#78aef8;--green:#173f2b;--gs:#70d995;--purple:#33275a;--ps:#b7a0ff;--amber:#4e3a18;--as:#f2c25f}}
+text{fill:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:17px}
+.title{font-size:25px;font-weight:600}.heading{font-size:19px;font-weight:600}.small{font-size:15px}.note{font-size:15px;fill:var(--muted)}
+.panel{fill:var(--panel);stroke:var(--line)}.blue{fill:var(--blue);stroke:var(--bs)}.green{fill:var(--green);stroke:var(--gs)}.purple{fill:var(--purple);stroke:var(--ps)}.amber{fill:var(--amber);stroke:var(--as)}
+rect{stroke-width:1.5}.edge{fill:none;stroke:var(--line);stroke-width:2;marker-end:url(#arrow)}.rule{stroke:var(--line);stroke-width:1}.a{stroke:var(--bs);fill:none;stroke-width:3}.b{stroke:var(--ps);fill:none;stroke-width:3}.c{stroke:var(--gs);fill:none;stroke-width:3}
+</style>
+<defs>
+<marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+<path d="M0 0 L8 4 L0 8 Z" fill="var(--line)"/>
+</marker>
+</defs>
+<title id="title">训练测试时间隔离与滚动回放</title>
+<desc id="desc">上层按时间展示训练、验证、可选独立校准和最终测试，数据段之间设置隔离带。中层展示跨越切分边界的预测起点应排除。下层区分测试前冻结的参数和测试中每五分钟更新的信息及电池状态。</desc>
+<text x="600" y="40" class="title" text-anchor="middle">五分钟重算预测和动作，不等于五分钟重新训练</text>
+<text x="600" y="73" class="note" text-anchor="middle">示意顺序，非等比例；具体日期、准备耗时与隔离范围由数据审计和预注册规则确定</text>
+<rect x="35" y="110" width="225" height="95" rx="10" class="blue"/>
+<text x="147.5" y="145" class="heading" text-anchor="middle">Train：训练</text>
+<text x="147.5" y="183" class="small" text-anchor="middle">拟合模型与历史统计</text>
+<rect x="300" y="110" width="225" height="95" rx="10" class="purple"/>
+<text x="412.5" y="145" class="heading" text-anchor="middle">Validation：验证</text>
+<text x="412.5" y="183" class="small" text-anchor="middle">选方法、参数与预算</text>
+<rect x="565" y="110" width="225" height="95" rx="10" class="green"/>
+<text x="677.5" y="145" class="heading" text-anchor="middle">Calibration：可选</text>
+<text x="677.5" y="183" class="small" text-anchor="middle">独立校准概率刻度</text>
+<rect x="830" y="110" width="335" height="95" rx="10" class="amber"/>
+<text x="997.5" y="145" class="heading" text-anchor="middle">Test：最终测试</text>
+<text x="997.5" y="183" class="small" text-anchor="middle">最新合格连续完整 12 个月</text>
+<rect x="266" y="110" width="28" height="95" class="panel"/>
+<text x="280" y="132" text-anchor="middle" class="small">
+<tspan x="280">隔</tspan>
+<tspan x="280" dy="23">离</tspan>
+<tspan x="280" dy="23">带</tspan>
+</text>
+<rect x="531" y="110" width="28" height="95" class="panel"/>
+<text x="545" y="132" text-anchor="middle" class="small">
+<tspan x="545">隔</tspan>
+<tspan x="545" dy="23">离</tspan>
+<tspan x="545" dy="23">带</tspan>
+</text>
+<rect x="796" y="110" width="28" height="95" class="panel"/>
+<text x="810" y="132" text-anchor="middle" class="small">
+<tspan x="810">隔</tspan>
+<tspan x="810" dy="23">离</tspan>
+<tspan x="810" dy="23">带</tspan>
+</text>
+<rect x="35" y="230" width="1130" height="175" rx="10" class="panel"/>
+<text x="65" y="263" class="heading" text-anchor="start">切分边界示例：后一段从 00:00 开始（固定 AEST）</text>
+<line x1="70" y1="310" x2="1125" y2="310" class="rule"/>
+<line x1="780" y1="275" x2="780" y2="352" style="stroke:var(--as);stroke-width:3"/>
+<rect x="320" y="285" width="440" height="48" rx="10" class="amber"/>
+<text x="540" y="315" class="small" text-anchor="middle">排除起点：23:00–23:55</text>
+<text x="120" y="336" class="small" text-anchor="middle">更早起点</text>
+<text x="790" y="371" class="small" text-anchor="middle">00:00 切分边界</text>
+<path d="M600 342 H1080" class="edge"/>
+<text x="580" y="372" class="small" text-anchor="middle">23:55 起点</text>
+<text x="1060" y="372" class="small" text-anchor="middle">目标到 00:55</text>
+<text x="65" y="394" class="note" text-anchor="start">隔离的是预测起点；完整目标与结果可见时间必须合格，训练准备耗时或更长延续窗口可能要求扩大隔离。</text>
+<rect x="35" y="430" width="530" height="175" rx="10" class="purple"/>
+<text x="300" y="467" class="heading" text-anchor="middle">Test 前冻结</text>
+<text x="300" y="507" class="" text-anchor="middle">模型参数、校准器、模板库、终端价值</text>
+<text x="300" y="543" class="" text-anchor="middle">选型规则与费用配置</text>
+<text x="300" y="580" class="note" text-anchor="middle">测试新标签不用于重训、重校准或增库</text>
+<rect x="620" y="430" width="545" height="175" rx="10" class="green"/>
+<text x="892" y="467" class="heading" text-anchor="middle">Test 内每五分钟推进</text>
+<text x="892" y="507" class="" text-anchor="middle">合格 P5MIN 与近期输入 → 预测 → 当前动作</text>
+<text x="892" y="543" class="" text-anchor="middle">按实际执行更新各策略 SOC → 下一轮</text>
+<text x="892" y="580" class="note" text-anchor="middle">新结果按可见性规则用于状态、评价或合法特征</text>
+<path d="M568 485 H612" class="edge"/>
+<text x="600" y="639" class="note" text-anchor="middle">未单设 Calibration 时，仍须在训练／验证内保留时间外校准预测；不能用训练内拟合结果校准自己。</text>
+</svg>
